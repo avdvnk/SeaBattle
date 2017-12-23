@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[14pt]{extsizes} 
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{float}
+
+\usepackage{indentfirst}
+\usepackage[left=2.5cm, right=1.5cm, vmargin=2.5cm]{geometry}
+\lstset {language = C++, backgroundcolor = \color{blue!5}, basicstyle = \footnotesize, commentstyle={}, texcl=true}
+
+\definecolor{linkcolor}{HTML}{799B03}
+\definecolor{urlcolor}{HTML}{799B03}
+\hypersetup{pdfstartview=FitH,  linkcolor = linkcolor, urlcolor=urlcolor, colorlinks=true}
+
+\begin{document}
+	
+	\begin{center}
+		ГУАП\\
+		КАФЕДРА № 51
+	\end{center}
+	\begin{center}
+		\begin{tabular}{clcll}
+			& & & & \\
+			\multicolumn{1}{l}{ПРЕПОДАВАТЕЛЬ} & \multicolumn{1}{c}{} & & & \\ \cline{1-3}
+			\multicolumn{1}{|c|}{доцент, к.т.н.} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{Линский Е.М.} & & \\ \cline{1-3}
+			\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}должность , уч. степень,\\ звание\end{tabular}} & \multicolumn{1}{c|}{подпись, дата} & \multicolumn{1}{c|}{инициалы, фамилия} &  &  \\ \cline{1-3}
+		\end{tabular}
+	\end{center}
+	
+	\vspace{5cm}
+	
+	\begin{center}
+		ОТЧЕТ ПО КУРСОВОЙ РАБОТЕ\\
+		СЕТЕВАЯ ИГРА <<МОРСКОЙ БОЙ>>\\
+		\vspace{1cm}
+		по курсу: ТЕХНОЛОГИИ ПРОГРАММИРОВАНИЯ\\
+	\end{center}
+	
+	\vspace{4cm}
+	\begin{center}
+		\begin{tabular}{cccll}
+			& \multicolumn{1}{l}{} & & &  \\
+			\multicolumn{1}{l}{РАБОТУ ВЫПОЛНИЛ} & & & &  \\ \cline{1-4}
+			\multicolumn{1}{|c|}{СТУДЕНТ ГР. №} & \multicolumn{1}{c|}{5511} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{Вдовенко А.} & \\ \cline{1-4}
+			\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{подпись, дата} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}инициалы,\\ фамилия\end{tabular}} &  \\ \cline{1-4}
+		\end{tabular}
+	\end{center}
+	\vspace{1cm}
+	\begin{center}
+		Санкт-Петербург 2017
+	\end{center}
+	\thispagestyle{empty}
+	\newpage
+	\tableofcontents
+	\newpage
+	\section {Функциональная спецификация}
+		\subsection{Цель работы}
+			Создание клиент-серверного приложения, с помощью 
+			которого возможно сыграть в <<Морской бой>> со своими друзьями, родственниками и другими пользователями.
+		\subsection{Функциональность приложения}
+			\begin{itemize}
+				\item {Регистрация уникального никнейма для каждого игрока}
+				\item {Профиль игрока}
+				\item {Создание игровой комнаты для ожидания соперника}
+				\item {Присоединение к уже созданной игровой комнате}
+				\item {Понятный графический интерфейс во время игры}
+			\end{itemize}
+		\subsection{Особенности реализации}
+			Для передачи данных между клиентом и сервером будет использоваться протокол TCP. Для реализации графического интерфейса клиентской части будет использована библиотека Swing. В серверной части будет реализовано многопоточность для быстрой обработки ходов всех пользователей. Проект упаковывается в jar файлы.
+	\section{Руководство пользователя}
+		\subsection{Просмотр профиля игрока}
+			При запуске приложения пользователь должен ввести уникальный никнейм, после он может либо создать новую игровую комнату и ожидать второго игрока для начала игры, либо присоединиться к уже существующей игровой комнате и начать бой.
+			\begin{figure}[H]
+				\center{\includegraphics[height = 8cm]{profile}}
+				\caption{Окно профиля.\label{profile}}
+			\end{figure}
+		\subsection{Создание игровой комнаты}
+			Для создания игровой комнаты необходимо нажать кнопку <<Start game>>, отобразится окно с полями игроков.
+			\begin{figure}[H]
+				\center{\includegraphics[height = 6cm]{field}}
+				\caption{Начало игры.\label{field}}
+			\end{figure}
+		\subsection{Подключиться к игровой комнате}
+			Для того, чтобы присоединиться к существующей комнате, необходимо нажать кнопку <<Join>>, появится окно, в котором будут отображены имена пользователей, ожидающие второго игрока. Как только к игровой комнате подключится второй игрок, данная игровая комната не будет отображаться в списке, доступных к подключению.
+			\begin{figure}[H]
+				\center{\includegraphics[height = 4cm]{lobbies}}
+				\caption{Доступные игровые комнаты.\label{lobbies}}
+			\end{figure}
+		\subsection{Игровой процесс}
+			При подключении к комнате второго игрока, запускается игровой процесс. Игроки по очереди используют свои ходы, нажимая на ячейки поля оппонента. Начинает игру тот пользователь, который создал игровую комнату. У пользователя также имеется игровое табло, где отображено количество оставшихся кораблей противника и их тип.
+			\begin{figure}[H]
+				\center{\includegraphics[height = 4cm]{scoreboard}}
+				\caption{Игровое табло.\label{scoreboard}}
+			\end{figure}
+		\subsection{Отображение результатов ходов}
+			После проведения хода, результат отображается на поле соперника. При промахе ячейка помечается точкой, при ранении корабля ячейка меняет свой цвет на красный. При полном потоплении корабля, происходит перекрашивание ячеек в серый цвет, принадлежащие данному кораблю.
+			\begin{figure}[H]
+				\center{\includegraphics[height = 6cm]{playprocess}}
+				\caption{Игровой процесс.\label{playprocess}}
+			\end{figure}
+		\section{Архитектура программы}
+			Архитектура программы соответствует шаблону Client-Server-Client, представленный на рисунке \ref{clientserver}
+			\begin{figure}[H]
+				\center{\includegraphics[height = 6cm]{clientserver}}
+				\caption{Архитектура программы.\label{clientserver}}
+			\end{figure}
+			Клиенты обмениваются выстрелами, посредником передачи ходов является сервер.\\
+			Проект состоит из трех пакетов:
+			\begin{itemize}
+				\item{model}
+				\item{view}
+				\item{web}
+			\end{itemize}
+			\subsection{Model}
+				Реализация логической части программы, определяющая:
+				\begin{itemize}
+					\item {Взаимное положение кораблей}
+					\item {Осуществление выстрела}
+					\item {Параметры кораблей, ячеек и игровых полей}
+				\end{itemize}
+			\subsection{View}
+				Реализация графической части программы, отображающая профиль игрока, поля и произведенные выстрелы игроков.
+			\subsection{Web}
+				Реализация взаимодействия клиентов через сервер.
+		\section{Основные классы и методы}
+			\subsection{Model}
+				Основным классом пакета является класс Field, который хранит в себе информацию о всех ячейках пользователя и кораблях.
+				\begin{itemize}
+					\item {public void setShip() -- случайно расставляет корабли на поле пользователя}
+					\item {public int doShot(Cell input) -- производит выстрел по заданной ячейке}
+					\item {public Cell getCell(int x, int y) -- возвращает объект Cell по заданным координатам}
+					\item{public ArrayList<Ship> getShips() -- возвращает список кораблей}
+					\item{public int getNumLiveShips() -- возвращает число оставшихся кораблей}
+					\item {public int getMaxShip() -- возвращает общее количество кораблей}
+				\end{itemize}
+			\subsection{View}
+				Пакет содержит классы, которые отображают:
+				\begin{itemize}
+					\item {Главное окно (класс MainFrame)}
+					\item {Окно игрового поля (класс GameView)}
+					\item {Игровое поле пользователя (класс PanelField)}
+					\item {Игровое поле соперника (класс PanelFieldOpponent)}
+					\item {Панель отображения очков (класс ScoreBoard)}
+					\item {Класс, обрабатывающий нажатия мыши(класс GameController)}
+				\end{itemize}
+			\subsection{Web}
+				Пакет содержит основной класс Client, который посылает запросы на сервер, а также принимает ответы от сервера.
+				\begin{itemize}
+					\item {public Cell sendShot(int x, int y) -- посылает на сервер координаты выстрела, затем принимает информацию о результате выстрела}
+					\item {public Cell getShot() -- принимает информацию от сервера о ячейке, в которую противник произвел выстрел, отправляет информацию о результате выстрела}
+					\item {public void sendMessage (String message) -- отправляет от имени пользователя команду на сервер}
+					\item {public void newLobby() -- отправляет запрос на сервер о создании новой игровой комнаты}
+					\item {public void getLobbies() -- отправляет запрос на сервер о получении списка доступных игровых комнат}
+					\item {public void connect(String nameLobby) -- отправляет запрос на сервер о присоединении пользователя к определенной игровой комнате}
+				\end{itemize}
+		\section{Вспомогательные инструменты}
+			\subsection{JAR}
+				Проект был собран в jar формат. Первый файл Server.jar, который запускает сам сервер. Второй файл SeaBattle.jar, который предназначен для запуска приложения пользователем.
+				\begin{figure}[H]
+					\center{\includegraphics[height = 3cm]{files}}
+					\caption{Упаковка в jar.\label{files}}
+				\end{figure}
+				\begin{figure}[H]
+					\center{\includegraphics[height = 8cm]{server}}
+					\caption{Пример запуска сервера с консоли.\label{server}}
+				\end{figure}
+			\subsection{Тесты}
+				Для тестирования модели игры была использована библиотека JUnit. На рисунке \ref{junit} представлен результат тестирования класса Cell.
+				\begin{figure}[H]
+					\center{\includegraphics[height = 3cm]{junit}}
+					\caption{Результат тестирования.\label{junit}}
+				\end{figure}
+				Пример исходного текста представлен на рисунке \ref{code}
+				\begin{figure}[H]
+					\center{\includegraphics[height = 6cm]{code}}
+					\caption{Пример кода тестирования.\label{code}}
+				\end{figure}
+			\subsection{Github}
+				Проект был расположен на Github в открытом доступе и находится по ссылке \url{https://github.com/otravlen/SeaBattle}
+		\section{Заключение}
+			В результате выполнения курсовой работы было реализовано клиент-серверное приложение <<Морской бой>>. Для графического отображения была использована библиотека Swing. Передача пакетов между клиентом и сервером происходит по протоколу TCP. Для удобства проект был упакован в jar файлы.
+\end{document}
